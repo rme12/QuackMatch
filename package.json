@@ -1,0 +1,23 @@
+{
+  "name": "QuackMatch Application",
+  "version": "1.0.0",
+  "description": "The primary goal of QuackMatch is to simplify and enhance the roommate selection process by offering a tailored experience that prioritizes compatibility.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "node app.js",
+    "start": "node app.js"
+  },
+  "author": "Zaafira Hasan, Carson Grenard, CJ Folgore, Zackery Dragos, Shravani Reddy",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.8.4",
+    "blueimp-md5": "^2.19.0",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.1",
+    "handlebars": "^4.7.8",
+    "md5": "^2.3.0",
+    "uuid": "^11.1.0",
+    "xss": "^1.0.15"
+  }
+}
