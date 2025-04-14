@@ -1,0 +1,40 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quack Match</title>
+  <link rel="stylesheet" href="/public/main.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Quack Match</h1>
+    <h2>Welcome Back!</h2>
+    <h3>Please login to your account</h3>
+  </header>
+
+  <main>
+    <p id="error" hidden></p>
+    <form method="POST" name="arraySortForm" id="arraySortForm">
+      <label for="user_name_input">Username/email address</label>
+      <hr style="height:2px;border-width:0;color: white;background-color:white">
+      <input type="text" name="user_name_input" id="user_name_input" />
+      <hr style="height:2px;border-width:0;color: white;background-color:white">
+      <label for="password_input">Password</label>
+      <hr style="height:2px;border-width:0;color: white;background-color:white">
+      <input type="text" name="password_input" id="password_input" />
+      <hr  style="height:2px;border-width:0;color: white;background-color:white">
+      <button type="submit" name="submitButton" id="submitButton">Login to QuackMatch</button>
+      <hr  style="height:2px;border-width:0;color: white;background-color:white">
+      <label>Don't have an account yet?</label>
+      <!--
+      TODO
+      Change href to correct url for account creation
+      -->
+      <a href="Account creation page url ">Create a QuackMatch account</a>
+    </form>
+    <ol id="input_sorted"></ol>
+  </main>
+</body>
+</html>
