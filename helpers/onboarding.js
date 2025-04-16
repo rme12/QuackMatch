@@ -20,7 +20,7 @@ export const onboardingQuestions = [
     { field: 'preferredRoommateAge', text: 'Preferred roommate age?', type: 'number' },
     { field: 'preferredRoommateGender', text: 'Preferred roommate gender?', type: 'select', options: ['Male', 'Female', 'Any'] },
     { field: 'mostImportantPreferences', text: 'Which 2 preferences matter the most to you?', type: 'multi-select', options: ['wakeUpTime', 'sleepTime', 'noiseTolerance', 'cleanliness', 'temperaturePreference', 'guestPolicy'] },
-    { field: 'leastImportantPreferences', text: 'Which preference matters the least to you?', type: 'select', options: ['wakeUpTime', 'sleepTime', 'noiseTolerance', 'cleanliness', 'temperaturePreference', 'guestPolicy'] }
+    { field: 'leastImportantPreferences', text: 'Which preference matters the least to you?', type: 'select', options: ['none', 'wakeUpTime', 'sleepTime', 'noiseTolerance', 'cleanliness', 'temperaturePreference', 'guestPolicy'] }
 ];
 
 // Format session data into DB schema and save
@@ -57,3 +57,4 @@ export async function saveUserOnboardingData(userId, sessionData) {
         }
     );
 }
+

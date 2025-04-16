@@ -173,3 +173,18 @@ label {
 .slider-values span {
     margin-right: 35px;
 }
+
+.checkbox-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.checkbox-text {
+    text-align: left;
+}
+
+input[type="checkbox"] {
+    justify-self: end; 
+}
