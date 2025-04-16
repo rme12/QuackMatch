@@ -125,6 +125,36 @@ h1 {
     font-size: 1rem;
 }
 
+.with-badge {
+    position: relative;
+    display: inline-block;
+}
+.nav-item-with-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.badge {
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 12px;
+    line-height: 1;
+    min-width: 24px;
+    text-align: center;
+    color: white;
+}
+
+.badge-red {
+    background-color: red;
+}
+
+.badge-grey {
+    background-color: grey;
+}
+
 @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }

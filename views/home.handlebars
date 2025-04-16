@@ -9,7 +9,12 @@
         </div>
         <div class="nav-links">
             <a href="/profile" class="btn">Edit Profile</a>
-            <a href="/matches" class="btn">View Matches</a>
+            <div class="nav-item-with-badge">
+                <a href="/matches" class="btn">View Matches</a>
+                <span class="badge {{#if notificationCount}}badge-red{{else}}badge-grey{{/if}}">
+                    {{notificationCount}}
+                </span>
+            </div>
             <a href="/listings" class="btn">Browse Listings</a>
         </div>
     </div>
