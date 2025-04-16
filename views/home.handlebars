@@ -33,7 +33,6 @@
                 <ul>
                     {{#each user.preferences.mostImportantPreferences}}
                         <li>
-                            <strong>{{@index}}.</strong> 
                             {{this}}: {{lookup ../user.preferences this}}
                         </li>
                     {{/each}}
