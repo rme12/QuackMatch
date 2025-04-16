@@ -1,1 +1,49 @@
-<h1> this is the homepage after login/register</h1>
+<!-- This is the handlebar for page after login -->
+
+<link rel="stylesheet" type="text/css" href="css/home.css">
+
+<div class="home-container">
+    <div class="top-nav">
+        <div class="logo">
+            <img src="images/logov2.png" alt="QuackMatch logo">
+        </div>
+        <div class="nav-links">
+            <a href="/profile" class="btn">Edit Profile</a>
+            <a href="/matches" class="btn">View Matches</a>
+            <a href="/listings" class="btn">Browse Listings</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- Left Column -->
+        <div class="left-panel">
+            <h1>Welcome back, {{user.firstName}}!</h1>
+            <h2>Your Perfect Match:</h2>
+            {{#if user.matchedUsers.length}}
+                <p class="subheading">Your top match is <strong>{{user.matchedUsers.[0]}}</strong></p>
+            {{else}}
+                <p class="subheading">Sorry, you have no matches yet.</p>
+            {{/if}}
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-panel">
+            <div class="preferences">
+                <h2>Your Top Preferences:</h2>
+                <ul>
+                    {{#each user.preferences.mostImportantPreferences}}
+                        <li>
+                            <strong>{{@index}}.</strong> 
+                            {{this}}: {{lookup ../user.preferences this}}
+                        </li>
+                    {{/each}}
+                </ul>
+                <h2>Your Least Important Preference</h2>
+                <p>
+                    {{user.preferences.leastImportantPreferences}}: 
+                    {{lookup user.preferences user.preferences.leastImportantPreferences}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

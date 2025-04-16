@@ -1,0 +1,132 @@
+/*
+CSS for page after login
+*/ 
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    padding: 60px 80px;
+}
+
+.home-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.left-panel {
+    width: 50%;
+    padding: 40px;
+}
+
+.logo img {
+    width: 210px;
+    height: auto;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.subheading {
+    color: #555;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.btn {
+    background: #f0f0f0;
+    color: black;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #e0e0e0;
+}
+
+
+.right-panel {
+    width: 40%;
+    padding: 40px;
+    background: #f9f9f9;
+    border-radius: 40px;
+}
+
+
+.top-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.nav-links {
+    display: flex;
+    gap: 16px;
+}
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 2px;
+    gap: 40px;
+}
+
+.preferences {
+    margin-top: 40px;
+}
+
+.preferences h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.preferences ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.preferences li {
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
