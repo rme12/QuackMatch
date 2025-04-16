@@ -4,6 +4,7 @@ import { connectToDb } from '../config/mongoConnection.js';
 import bcrypt from 'bcrypt';
 import { onboardingQuestions, saveUserOnboardingData } from '../helpers/onboarding.js';
 import { ObjectId } from 'mongodb';
+import {findMatches} from '../data/roommateMatcher.js';
 
 
 const router = Router();
@@ -60,6 +61,8 @@ router.post('/login', async (req, res) => {
     if (!user.preferences) {
         return res.redirect('/onboarding');
     } else {
+        const matches = await findMatches(req.session.userId.toString());
+        console.log(matches);
         return res.redirect('/home');
     }
 });
