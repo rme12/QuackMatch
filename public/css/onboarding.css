@@ -140,3 +140,36 @@ label {
     color: #666;
 }
 
+
+#slider {
+    width: 90%;
+    height: 1px;
+    -webkit-appearance: none;
+    outline: none;
+    border-radius: 20px;
+    margin-left: 2.5%;
+
+}
+
+#slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #0b0909;
+    cursor: pointer;
+}
+
+.slider-values {
+    margin-top: 0px;
+    width: 90%;
+    font-size: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;          
+}
+
+.slider-values span {
+    margin-right: 35px;
+}
