@@ -1,0 +1,69 @@
+<link rel="stylesheet" href="/css/onboarding.css">
+<div class="onboarding-container">
+
+    <div style="text-align: center; margin-bottom: 25px;">
+        <img src="/images/logo.png" alt="QuackMatch Logo" style="max-width: 120px; filter: drop-shadow(0 2px 6px rgba(255, 193, 7, 0.3));">
+    </div>
+
+    <div class="onboarding-header">
+        <h1>We’d love to get to know you 🐥</h1>
+        <p>Answer a few quick questions so we can match you with the right roommate.</p>
+    </div>
+
+    <div class="progress-wrapper">
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: {{multiply (divide questionIndex totalQuestions) 100}}%;"></div>
+        </div>
+        <p style="text-align: center; margin-top: 10px;">Step {{add questionIndex 1}} of {{totalQuestions}}</p>
+    </div>
+
+    <form method="POST" action="/onboarding" class="question-form">
+        <input type="hidden" name="index" value="{{questionIndex}}">
+        <input type="hidden" name="field" value="{{question.field}}">
+
+        <div class="question-card">
+            <h2>{{question.text}}</h2>
+
+            {{#if (eq question.type "text")}}
+                <input type="text" name="value" required>
+
+            {{else if (eq question.type "number")}}
+                <input type="number" name="value" required>
+
+            {{else if (eq question.type "time")}}
+                <input type="time" name="value" required>
+
+            {{else if (eq question.type "select")}}
+                <select name="value" required>
+                    {{#each question.options}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+
+            {{else if (eq question.type "boolean")}}
+                <select name="value" required>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+
+            {{else if (eq question.type "range")}}
+                <input type="range" name="value" min="{{question.min}}" max="{{question.max}}" required>
+
+            {{else if (eq question.type "multi-select")}}
+                {{#each question.options}}
+                    <label>
+                        <input type="checkbox" name="value" value="{{this}}"> {{this}}
+                    </label><br>
+                {{/each}}
+
+            {{/if}}
+
+            <div class="buttons">
+                {{#if questionIndex}}
+                    <a href="/onboarding?q={{subtract questionIndex 1}}" class="btn secondary">← Back</a>
+                {{/if}}
+                <button type="submit" class="btn primary">Next →</button>
+            </div>
+        </div>
+    </form>
+</div>

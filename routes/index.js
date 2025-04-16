@@ -1,14 +1,14 @@
-
-//import abcRoutes from './abc.js';
-//import xyzRoutes from './xyz.js';
+// routes/index.js
+import { Router } from 'express';
+import characterRoutes from './characters.js';
 
 const constructorMethod = (app) => {
-  //app.use('/abc', abcRoutes);
-  //app.use('/xyz', xyzRoutes);
+    app.use('/', characterRoutes);
 
-  app.use('*', (req, res) => {
-    res.status(404).json({error: 'Route Not found'});
-  });
+    // Handle 404
+    app.use('*', (req, res) => {
+        res.status(404).render('error', { error: 'Page not found' });
+    });
 };
 
 export default constructorMethod;

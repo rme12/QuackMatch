@@ -1,0 +1,43 @@
+<link rel="stylesheet" type="text/css" href="css/login.css">
+
+<div class="left">
+    <div class="logo">
+        <img src="images/logov2.png" alt="Quackmatch logo">
+    </div>
+    <h1>Create an Account</h1>
+    <p class="subheading">Join the duck side today 🦆</p>
+    {{#if error}}
+        <div class="error-box">
+            {{error}}
+        </div>
+    {{/if}}
+    <form method="POST" action="/register">
+        <label for="name">First Name</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Ducky">
+
+        <label for="name">Last Name</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Quacker">
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="duck@example.com">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Create a strong password">
+
+        <label for="confirm">Confirm Password</label>
+        <input type="password" id="confirm" name="confirm" placeholder="Repeat your password">
+
+        <button name="submit" class="btn">Register with QuackMatch →</button>
+    </form>
+
+    <div class="footer-link">
+        Already have an account? <a href="/login">Login here</a>
+    </div>
+</div>
+
+<div class="right">
+    <img class="illustration" src="images/banner.png" alt="Illustration">
+    <div class="contact">
+        Need help? <a href="tel:">Contact Us</a>
+    </div>
+</div>
