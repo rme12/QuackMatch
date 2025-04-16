@@ -119,7 +119,12 @@ router.get('/home', async (req, res) => {
     } else if (!user.preferences) {
         return res.redirect('/onboarding');
     } else {
-        res.render('home', { title: 'Home', user });
+        const notificationCount = 0;
+        /*
+        Once Messages is created make notifificationCount something like this
+        const notificationCount = await db.collection('Messages').countDocuments({recipientId: user._id, read: false});
+        */
+        res.render('home', { title: 'Home', user, notificationCount });
     }
 });
 
