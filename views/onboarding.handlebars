@@ -47,15 +47,14 @@
                 </select>
 
             {{else if (eq question.type "range")}}
-                <input type="range" name="value" min="{{question.min}}" max="{{question.max}}" id="slider" required>
-                <p class="slider-values">&nbsp;&nbsp;&nbsp;&nbsp;<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>10</p>
-                
+                <input type="range" name="value" min="{{question.min}}" max="{{question.max}}" required>
 
             {{else if (eq question.type "multi-select")}}
                 {{#each question.options}}
-                    <label>
-                        <input type="checkbox" name="value" value="{{this}}"> {{this}}
-                    </label><br>
+                    <div class="checkbox-row">
+                        <span class="checkbox-text">{{this}}</span>
+                        <input type="checkbox" name="value" value="{{this}}">
+                    </div>
                 {{/each}}
 
             {{/if}}
