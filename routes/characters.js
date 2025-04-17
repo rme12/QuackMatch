@@ -4,6 +4,7 @@ import { connectToDb } from '../config/mongoConnection.js';
 import bcrypt from 'bcrypt';
 import { onboardingQuestions, saveUserOnboardingData } from '../helpers/onboarding.js';
 import { ObjectId } from 'mongodb';
+import {findMatches} from '../data/roommateMatcher.js';
 
 
 const router = Router();
