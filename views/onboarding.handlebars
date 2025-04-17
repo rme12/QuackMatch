@@ -17,7 +17,7 @@
         <p style="text-align: center; margin-top: 10px;">Step {{add questionIndex 1}} of {{totalQuestions}}</p>
     </div>
 
-    <form method="POST" action="/onboarding" class="question-form">
+    <form method="POST" action="/onboarding" class="question-form" enctype="multipart/form-data">
         <input type="hidden" name="index" value="{{questionIndex}}">
         <input type="hidden" name="field" value="{{question.field}}">
 
@@ -57,6 +57,34 @@
                         <input type="checkbox" name="value" value="{{this}}">
                     </div>
                 {{/each}}
+
+            {{else if (eq question.type "image")}}
+                <div class="image-upload-wrapper">
+                    <label for="profileImage" class="custom-file-upload">
+                        📷 Upload a Profile Image
+                    </label>
+                    <input type="file" name="profileImage" id="profileImage" accept="image/*" required hidden>
+                    <img id="preview" src="#" alt="Image Preview" style="display:none; margin-top: 10px; max-width: 150px; border-radius: 8px;" />
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const input = document.getElementById('profileImage');
+                        const preview = document.getElementById('preview');
+
+                        input.addEventListener('change', function () {
+                            const file = this.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    preview.src = e.target.result;
+                                    preview.style.display = 'block';
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                    });
+                </script>
 
             {{/if}}
 

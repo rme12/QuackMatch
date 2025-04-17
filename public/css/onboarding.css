@@ -188,3 +188,23 @@ label {
 input[type="checkbox"] {
     justify-self: end; 
 }
+
+.custom-file-upload {
+    display: inline-block;
+    background-color: #ffc107;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+}
+
+.custom-file-upload:hover {
+    background-color: #e0a800;
+}
+
+.image-upload-wrapper {
+    text-align: center;
+    margin-top: 15px;
+}
