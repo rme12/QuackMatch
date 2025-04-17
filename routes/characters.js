@@ -5,7 +5,10 @@ import bcrypt from 'bcrypt';
 import { onboardingQuestions, saveUserOnboardingData } from '../helpers/onboarding.js';
 import { ObjectId } from 'mongodb';
 import {findMatches} from '../data/roommateMatcher.js';
+import multer from 'multer';
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 const router = Router();
 
@@ -147,7 +150,7 @@ router.get('/onboarding', (req, res) => {
 });
 
 // POST - Onboarding Answer
-router.post('/onboarding', async (req, res) => {
+router.post('/onboarding',upload.single('profileImage'), async (req, res) => {
     if (!req.session.userId) return res.redirect('/login');
 
     const { field, value, index } = req.body;
