@@ -5,6 +5,9 @@ import bcrypt from 'bcrypt';
 import { onboardingQuestions, saveUserOnboardingData } from '../helpers/onboarding.js';
 import { ObjectId } from 'mongodb';
 import {findMatches} from '../data/roommateMatcher.js';
+import multer from 'multer';
+const upload = multer({ dest: 'public/uploads/' }); // or use cloud storage
+
 
 
 const router = Router();
@@ -161,10 +164,45 @@ router.post('/onboarding', async (req, res) => {
         // Save to DB using helper
         await saveUserOnboardingData(req.session.userId, req.session.onboardingData);
         delete req.session.onboardingData;
-        return res.redirect('/home');
+        return res.redirect('/upload-profile-pic');
     }
 
     res.redirect(`/onboarding?q=${nextIndex}`);
+});
+
+// GET - Upload Profile Picture Page
+router.get('/upload-profile-pic', (req, res) => {
+    if (!req.session.userId) {
+        return res.redirect('/login');
+    }
+
+    res.render('profile_picture', {
+        title: 'Upload your profile picture'
+    });
+});
+
+// POST - Upload Profile Picture Page
+router.post('/upload-profile-pic', upload.single('profilePic'), async (req, res) => {
+    const db = await connectToDb();
+    const userId = req.session.userId;
+
+    await db.collection('Users').updateOne(
+        { _id: new ObjectId(userId) },
+        { $set: { profilePicPath: req.file.path } }
+    );
+
+    res.redirect('/loading');
+});
+
+// GET - Loading page
+router.get('/loading', (req, res) => {
+    if (!req.session.userId) {
+        return res.redirect('/login');
+    }
+
+    res.render('loading', {
+        title: 'Matching in progress'
+    });
 });
 
 
