@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="/css/onboarding.css" />
+
+<div class="upload-container">
+    <h2>Just one last step 🦆</h2>
+    <p>Upload a profile picture so your future roomie knows who you are!</p>
+
+    <form action="upload-profile-pic" method="POST" enctype="multipart/form-data">
+        <div class="image-preview" id="preview">
+            <span>Preview</span>
+        </div>
+        <input type="file" name="profilePic" accept="image/*" onchange="previewImage(event)" required />
+        <br>
+        <button type="submit" class="btn ">Finish & Get Matched →</button>
+    </form>
+</div>
+
+<script>
+    function previewImage(event) {
+        const preview = document.getElementById('preview');
+        preview.innerHTML = '';
+
+        const file = event.target.files[0];
+        if (file) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            preview.appendChild(img);
+        } else {
+            preview.innerHTML = '<span>Preview</span>';
+        }
+    }
+</script>
