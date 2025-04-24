@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public')); // To serve CSS/JS
 
+
 // View engine setup
 const hbs = exphbs.create({
     defaultLayout: 'main',
@@ -26,7 +27,9 @@ const hbs = exphbs.create({
         add: (a, b) => a + b,
         subtract: (a, b) => a - b,
         multiply: (a, b) => a * b,
-        divide: (a, b) => b !== 0 ? a / b : 0
+        divide: (a, b) => b !== 0 ? a / b : 0,
+        or: (a, b) => a || b,
+        includes: (arr, val) => Array.isArray(arr) && arr.includes(val)
     }
 });
 app.engine('handlebars', hbs.engine);
