@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="/css/profile.css" />
+
+
+<div class="top-nav">
+        <div class="logo">
+            <img src="images/logov2.png" alt="QuackMatch logo">
+        </div>
+        <div class="nav-links">
+            <a href="/home" class="btn">Home</a>
+        </div>
+</div>
+
+<form id="updateProfileForm" action="/profile/update" method="POST">
+<div class="profile-form-container">
+  {{#each onboardingQuestions}}
+    <div class="form-group">
+      <label for="{{this.field}}">{{this.text}}</label>
+
+      {{!-- Text / Number / Time --}}
+      {{#if (or (eq this.type "text") (eq this.type "number") (eq this.type "time"))}}
+        <input 
+          type="{{this.type}}" 
+          name="{{this.field}}" 
+          id="{{this.field}}" 
+          value="{{lookup ../user this.field}}" />
+      
+      {{!-- Boolean --}}
+      {{else if (eq this.type "boolean")}}
+        <select name="{{this.field}}" id="{{this.field}}">
+          <option value="true" {{#if (eq (lookup ../user this.field) true)}}selected{{/if}}>Yes</option>
+          <option value="false" {{#if (eq (lookup ../user this.field) false)}}selected{{/if}}>No</option>
+        </select>
+
+      {{!-- Select --}}
+      {{else if (eq this.type "select")}}
+        <select name="{{this.field}}" id="{{this.field}}">
+          {{#each this.options}}
+            <option value="{{this}}" {{#if (eq this (lookup ../../user ../field))}}selected{{/if}}>{{this}}</option>
+          {{/each}}
+        </select>
+
+      {{!-- Multi-select --}}
+      {{else if (eq this.type "multi-select")}}
+        <div class="multi-select-checkbox-group" id="{{this.field}}">
+            {{#each this.options}}
+                <div class="checkbox-row">
+                <label>
+                    <input 
+                    type="checkbox" 
+                    name="{{../field}}" 
+                    value="{{this}}" 
+                    {{#if (includes (lookup ../../user ../field) this)}}checked{{/if}}>
+                    {{this}}
+                </label>
+                </div>
+            {{/each}}
+        </div>
+    
+
+    {{else if (eq this.type "time")}}
+        <input 
+        type="time" 
+        name="{{this.field}}" 
+        id="{{this.field}}" 
+        value="{{lookup ../user this.field}}" 
+        required />
+    
+
+      {{!-- Range --}}
+      {{else if (eq this.type "range")}}
+        <input 
+          type="range" 
+          name="{{this.field}}" 
+          id="{{this.field}}" 
+          min="{{this.min}}" 
+          max="{{this.max}}" 
+          value="{{lookup ../user this.field}}" />
+      {{/if}}
+    </div>
+  {{/each}}
+  </div>  
+  <button type="submit">Save Changes</button>
+</form>
+
+<script src="/js/profile_script.js"></script>
+

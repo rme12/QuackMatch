@@ -186,9 +186,12 @@ router.post('/upload-profile-pic', upload.single('profilePic'), async (req, res)
     const db = await connectToDb();
     const userId = req.session.userId;
 
+    const picPath = req.file.path.replace(/^public[\\/]/, '') // strip "public/" or "public\"
+    .replace(/\\/g, '/'); 
+
     await db.collection('Users').updateOne(
         { _id: new ObjectId(userId) },
-        { $set: { profilePicPath: req.file.path } }
+        { $set: { profilePicPath: picPath } }
     );
 
     res.redirect('/loading');
@@ -204,6 +207,50 @@ router.get('/loading', (req, res) => {
         title: 'Matching in progress'
     });
 });
+
+router.get('/profile', async (req, res) => {
+    if (!req.session.userId) {
+        return res.redirect('/login');
+    }
+
+    const db = await connectToDb();
+    const user = await db.collection('Users').findOne({ _id: new ObjectId(req.session.userId) });
+
+    const excludedFields = ['studentID', 'age', 'gender'];
+    const userPreferences = user.preferences;
+    const filteredQuestions = onboardingQuestions.filter(q => !excludedFields.includes(q.field));
+    
+    res.render('profile', { user: userPreferences, onboardingQuestions : filteredQuestions});
+});
+
+router.post('/profile/update', async (req, res) => {
+    const db = await connectToDb();
+    const userId = new ObjectId(req.session.userId);
+    const excludedFields = ['studentID', 'age', 'gender'];
+  
+    // Build the update object by excluding certain fields
+    
+    const updates = {};
+    for (const [key, value] of Object.entries(req.body)) {
+      if (!excludedFields.includes(key)) {
+        // Handle multi-selects properly (arrays come in as strings if only one item)
+        if (Array.isArray(value)) {
+          updates[key] = value;
+        } else if (value === 'true' || value === 'false') {
+          updates[key] = value === 'true'; // convert strings to actual booleans
+        } else {
+          updates[key] = value;
+        }
+      }
+    }
+  
+    await db.collection('Users').updateOne(
+      { _id: userId },
+      { $set: {preferences: req.body}}
+    );
+  
+    res.redirect('/profile');
+  });
 
 
 export default router;
