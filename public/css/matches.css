@@ -5,14 +5,17 @@
 }
 
 .left-panel {
-    width: 20%;
+    width: 15%;
     padding-right: 20px;
     border-right: 1px solid #ccc;
 }
 
 .right-panel {
-    width: 80%;
+    width: 75%;
     padding-left: 20px;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
 }
 
 .match-list {
@@ -26,28 +29,37 @@
   align-items: center;
   justify-content: flex-start;
   gap: 5px;
-  width: 100%;
-  padding: 15px 10px;
-  background-color: #f5f5f5;
+  width: 80%;
+  padding: 10px;
+  background-color: #f7f6f6;
   border: none;
   cursor: pointer;
   border-radius: 8px;
   transition: background-color 0.2s;
   margin-bottom: 20px;
+  margin-left: 7%; 
+  font-size:20px;
 }
 
 .match-btn:hover {
-    background-color: #e0e0e0;
+    background-color: #d9d8d8d1;
 }
 
 .profile-pic {
-    width: 250px;
+    width: 225px;
+    height: 300px;
     border-radius: 10px;
     margin-top: 10px;
+    overflow: hidden;
+    object-fit: cover;
+    
 }
 
 .profile-pic-small {
     width: 125px;
+    height: 166.67px;
     border-radius: 10px;
     margin-top: 10px;
+    overflow: hidden;
+    object-fit: cover;
 }

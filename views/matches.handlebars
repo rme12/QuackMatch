@@ -12,9 +12,8 @@
                         data-lastname="{{this.0.lastName}}"
                         data-email="{{this.0.email}}"
                         data-pic="{{this.0.profilePicPath}}"
-                    >   <img src="{{this.0.profilePicPath}}" class="profile-pic-small" alt="No Profile Photo">
+                    >   <img src="{{#if this.0.profilePicPath}}{{this.0.profilePicPath}}{{else}}/images/defaultProfilePicture.png{{/if}}" class="profile-pic-small" alt="No Profile Photo">
                         {{this.0.firstName}} {{this.0.lastName}}
-                        
                     </button>
                 </li>
             {{/each}}

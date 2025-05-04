@@ -129,7 +129,7 @@ const updateMatches = async (userId, matchedUsers) => {
         { $set: { matchedUsers } }
     );
     if (result.modifiedCount === 0) {
-        throw new Error(`No user found with id ${userId} or no changes made.`);
+        return {success: false, message: 'Matches failed to update'};
     }
     return { success: true, message: 'Matches updated successfully.' };
 };
@@ -146,7 +146,6 @@ export async function findMatches(userId, sessionData) {
     // Loop through each user and generate a similarity score
     for (const otherUser of allUsers) {
         if (otherUser._id.toString() === user._id.toString()){
-            console.log("Same suer");
             continue;
         }
         const similarity = similarityScore(user, otherUser);
