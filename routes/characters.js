@@ -4,7 +4,7 @@ import { connectToDb } from '../config/mongoConnection.js';
 import bcrypt from 'bcrypt';
 import { onboardingQuestions, saveUserOnboardingData } from '../helpers/onboarding.js';
 import { ObjectId } from 'mongodb';
-import {findMatches} from '../data/roommateMatcher.js';
+import {findAndUpdateMatches} from '../data/roommateMatcher.js';
 import multer from 'multer';
 const upload = multer({ dest: 'public/uploads/' }); // or use cloud storage
 
@@ -64,6 +64,7 @@ router.post('/login', async (req, res) => {
     if (!user.preferences) {
         return res.redirect('/onboarding');
     } else {
+        const updateMatches = await findAndUpdateMatches(user._id);
         return res.redirect('/home');
     }
 });
@@ -117,7 +118,7 @@ router.get('/home', async (req, res) => {
 
     const db = await connectToDb();
     const user = await db.collection('Users').findOne({ _id: new ObjectId(req.session.userId) });
-
+    console.log(user);
     if (!user) {
         req.session.destroy(() => res.redirect('/login'));
     } else if (!user.preferences) {
