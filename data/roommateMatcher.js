@@ -145,6 +145,10 @@ export async function findMatches(userId, sessionData) {
 
     // Loop through each user and generate a similarity score
     for (const otherUser of allUsers) {
+        if (otherUser._id.toString() === user._id.toString()){
+            console.log("Same suer");
+            continue;
+        }
         const similarity = similarityScore(user, otherUser);
 
         // Add the current user and their score as a tuple
