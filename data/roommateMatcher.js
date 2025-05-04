@@ -118,32 +118,56 @@ const similarityScore = (user1, user2) => {
     return similarity/12;
 }
 
+const updateMatches = async (userId, matchedUsers) => {
+    if (!userId) throw 'You must provide a userId';
+    if (typeof userId !== 'string' || userId.trim().length === 0) throw 'Invalid userId';
+    if (!ObjectId.isValid(userId)) throw 'Invalid ObjectId';
+
+    const db = await connectToDb();
+    const result = await db.collection('Users').updateOne(
+        { _id: new ObjectId(userId) },
+        { $set: { matchedUsers } }
+    );
+    if (result.modifiedCount === 0) {
+        throw new Error(`No user found with id ${userId} or no changes made.`);
+    }
+    return { success: true, message: 'Matches updated successfully.' };
+};
+
 export async function findMatches(userId, sessionData) {
 
     //Get all users as well as the user you want to match with
     // Get all users as well as the user you want to match with
-const user = await getUserById(userId);
-const allUsers = await getAllUsers();
+    const user = await getUserById(userId);
+    const allUsers = await getAllUsers();
 
-let top10 = [];
+    let top10 = [];
 
-// Loop through each user and generate a similarity score
-for (const otherUser of allUsers) {
-    const similarity = similarityScore(user, otherUser);
+    // Loop through each user and generate a similarity score
+    for (const otherUser of allUsers) {
+        const similarity = similarityScore(user, otherUser);
 
-    // Add the current user and their score as a tuple
-    top10.push([otherUser, similarity]);
+        // Add the current user and their score as a tuple
+        top10.push([otherUser, similarity]);
 
-    // Sort the list in descending order of similarity scores
-    top10.sort((a, b) => b[1] - a[1]);
+        // Sort the list in descending order of similarity scores
+        top10.sort((a, b) => b[1] - a[1]);
 
-    // If the list exceeds 10, remove the lowest scorer
-    if (top10.length > 10) {
-        top10.pop();
+        // If the list exceeds 10, remove the lowest scorer
+        if (top10.length > 10) {
+            top10.pop();
+        }
     }
+
+    // Return the list of the top 10 highest scorers
+    return top10;
 }
 
-// Return the list of the top 10 highest scorers
-return top10;
+export async function findAndUpdateMatches(userId){
+    if (typeof userId !== "string"){
+        userId = userId.toString();
+    }
+    const matches = await findMatches(userId);
+    const updateResult = await updateMatches(userId, matches);
+    return [matches, updateResult];
 }
-
