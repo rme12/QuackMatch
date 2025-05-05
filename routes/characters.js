@@ -119,7 +119,6 @@ router.get('/home', async (req, res) => {
 
     const db = await connectToDb();
     const user = await db.collection('Users').findOne({ _id: new ObjectId(req.session.userId) });
-    console.log(user);
     if (!user) {
         req.session.destroy(() => res.redirect('/login'));
     } else if (!user.preferences) {
@@ -239,6 +238,20 @@ router.get('/profile', async (req, res) => {
     
     res.render('profile', { user: userPreferences, onboardingQuestions : filteredQuestions});
 });
+
+router.get('/matches', async (req, res) => {
+    if (!req.session.userId) return res.redirect('/login');
+
+    const db = await connectToDb();
+    const user = await db.collection('Users').findOne({ _id: new ObjectId(req.session.userId) });
+
+    if (!user) {
+        req.session.destroy(() => res.redirect('/login'));
+    } else {
+        res.render('matches', { title: 'Your Matches', user });
+    }
+});
+
 
 router.post('/profile/update', async (req, res) => {
     const db = await connectToDb();

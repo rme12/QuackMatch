@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="/css/matches.css">
+
+<div class="matches-container">
+    <div class="left-panel">
+        <h2>Your Matches</h2>
+        <ul class="match-list">
+            {{#each user.matchedUsers}}
+                <li>
+                    <button
+                        class="match-btn"
+                        data-firstname="{{this.0.firstName}}"
+                        data-lastname="{{this.0.lastName}}"
+                        data-email="{{this.0.email}}"
+                        data-pic="{{this.0.profilePicPath}}"
+                    >   <img src="{{#if this.0.profilePicPath}}{{this.0.profilePicPath}}{{else}}/images/defaultProfilePicture.png{{/if}}" class="profile-pic-small" alt="No Profile Photo">
+                        {{this.0.firstName}} {{this.0.lastName}}
+                    </button>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="right-panel">
+        <div id="match-details">
+            {{#if user.matchedUsers.length}}
+                <h2>{{user.matchedUsers.0.0.firstName}} {{user.matchedUsers.0.0.lastName}}</h2>
+                <img src="{{user.matchedUsers.0.0.profilePicPath}}" class="profile-pic" alt="No Profile Photo">
+                <p><strong>Email:</strong> {{user.matchedUsers.0.0.email}}</p>
+            {{else}}
+                <p>No matches found.</p>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.match-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const firstName = btn.getAttribute('data-firstname');
+            const lastName = btn.getAttribute('data-lastname');
+            const email = btn.getAttribute('data-email');
+            const pic = btn.getAttribute('data-pic');
+
+            const detailsDiv = document.getElementById('match-details');
+            detailsDiv.innerHTML = `
+                <h2>${firstName} ${lastName}</h2>
+                <img src="${pic}" class="profile-pic" alt="Profile Picture">
+                <p><strong>Email:</strong> ${email}</p>
+            `;
+        });
+    });
+</script>

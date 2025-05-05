@@ -154,7 +154,11 @@ h1 {
 .badge-grey {
     background-color: grey;
 }
-
+.profile-pic {
+    width: 200px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
 @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }

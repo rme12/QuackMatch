@@ -1,0 +1,65 @@
+.matches-container {
+    display: flex;
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.left-panel {
+    width: 15%;
+    padding-right: 20px;
+    border-right: 1px solid #ccc;
+}
+
+.right-panel {
+    width: 75%;
+    padding-left: 20px;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+}
+
+.match-list {
+    list-style: none;
+    padding: 0;
+}
+
+.match-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  width: 80%;
+  padding: 10px;
+  background-color: #f7f6f6;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  margin-bottom: 20px;
+  margin-left: 7%; 
+  font-size:20px;
+}
+
+.match-btn:hover {
+    background-color: #d9d8d8d1;
+}
+
+.profile-pic {
+    width: 225px;
+    height: 300px;
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    object-fit: cover;
+    
+}
+
+.profile-pic-small {
+    width: 125px;
+    height: 166.67px;
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    object-fit: cover;
+}
