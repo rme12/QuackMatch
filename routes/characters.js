@@ -6,6 +6,7 @@ import { onboardingQuestions, saveUserOnboardingData } from '../helpers/onboardi
 import { ObjectId } from 'mongodb';
 import {findMatches} from '../data/roommateMatcher.js';
 import multer from 'multer';
+import { validateId } from '../helpers.js';
 const upload = multer({ dest: 'public/uploads/' }); // or use cloud storage
 
 
@@ -159,6 +160,12 @@ router.post('/onboarding', async (req, res) => {
     req.session.onboardingData[field] = value;
 
     const nextIndex = currentIndex + 1;
+    try {
+        //input validation
+        if (nextIndex == 1)
+        {
+            await validateId(value)
+        }
 
     if (nextIndex >= onboardingQuestions.length) {
         // Save to DB using helper
@@ -168,6 +175,15 @@ router.post('/onboarding', async (req, res) => {
     }
 
     res.redirect(`/onboarding?q=${nextIndex}`);
+    
+    }catch(e) {
+        return res.render('onboarding', {
+            question: onboardingQuestions[currentIndex],
+            title: 'Onboarding',
+            error: e.message || 'Input error',
+            value // to prefill the form with the user's last input
+        });
+    }
 });
 
 // GET - Upload Profile Picture Page

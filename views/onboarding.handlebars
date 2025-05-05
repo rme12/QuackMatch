@@ -24,41 +24,47 @@
         <div class="question-card">
             <h2>{{question.text}}</h2>
 
-            {{#if (eq question.type "text")}}
-                <input type="text" name="value" required>
+           {{#if (eq question.type "text")}}
+            <input type="text" name="value" value="{{value}}" required>
+            {{#if error}}<div class="error-message">{{error}}</div>{{/if}}
 
-            {{else if (eq question.type "number")}}
-                <input type="number" name="value" required>
+        {{else if (eq question.type "number")}}
+            <input type="number" name="value" value="{{value}}" required>
+            {{#if error}}<div class="error-message">{{error}}</div>{{/if}}
 
-            {{else if (eq question.type "time")}}
-                <input type="time" name="value" required>
+        {{else if (eq question.type "time")}}
+            <input type="time" name="value" value="{{value}}" required>
+            {{#if error}}<div class="error-message">{{error}}</div>{{/if}}
 
-            {{else if (eq question.type "select")}}
-                <select name="value" required>
-                    {{#each question.options}}
-                        <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-                </select>
-
-            {{else if (eq question.type "boolean")}}
-                <select name="value" required>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                </select>
-
-            {{else if (eq question.type "range")}}
-                <input type="range" name="value" min="{{question.min}}" max="{{question.max}}" id="slider" required>
-                <p class="slider-values">&nbsp;&nbsp;&nbsp;&nbsp;<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>10</p>
-
-            {{else if (eq question.type "multi-select")}}
+        {{else if (eq question.type "select")}}
+            <select name="value" required>
                 {{#each question.options}}
-                    <div class="checkbox-row">
-                        <span class="checkbox-text">{{this}}</span>
-                        <input type="checkbox" name="value" value="{{this}}">
-                    </div>
+                    <option value="{{this}}" {{#if (eq ../value this)}}selected{{/if}}>{{this}}</option>
                 {{/each}}
+            </select>
+            {{#if error}}<div class="error-message">{{error}}</div>{{/if}}
 
-            {{/if}}
+        {{else if (eq question.type "boolean")}}
+            <select name="value" required>
+                <option value="true" {{#if (eq value "true")}}selected{{/if}}>Yes</option>
+                <option value="false" {{#if (eq value "false")}}selected{{/if}}>No</option>
+            </select>
+            {{#if error}}<div class="error-message">{{error}}</div>{{/if}}
+
+        {{else if (eq question.type "range")}}
+            <input type="range" name="value" min="{{question.min}}" max="{{question.max}}" id="slider" value="{{value}}" required>
+            <p class="slider-values">&nbsp;&nbsp;&nbsp;&nbsp;<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>10</p>
+            {{#if error}}<div class="error-message">{{error}}</div>{{/if}}
+
+        {{else if (eq question.type "multi-select")}}
+            {{#each question.options}}
+                <div class="checkbox-row">
+                    <span class="checkbox-text">{{this}}</span>
+                    <input type="checkbox" name="value" value="{{this}}" {{#if (includes ../value this)}}checked{{/if}}>
+                </div>
+            {{/each}}
+            {{#if error}}<div class="error-message">{{error}}</div>{{/if}}
+        {{/if}}
 
             <div class="buttons">
                 {{#if questionIndex}}
