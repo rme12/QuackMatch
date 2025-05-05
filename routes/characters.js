@@ -89,6 +89,9 @@ router.post('/register', async (req, res) => {
         return res.status(400).render('register', { error: 'All fields are required' });
     }
 
+    if (!email.endsWith('@stevens.edu')) {
+        return res.status(400).render('register', { error: 'Access is limited to current Stevens students.' });
+    }
     if (password !== confirm) {
         return res.status(400).render('register', { error: 'Passwords do not match.' });
     }
