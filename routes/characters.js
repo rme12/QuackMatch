@@ -162,10 +162,8 @@ router.post('/onboarding', async (req, res) => {
     const nextIndex = currentIndex + 1;
     try {
         //input validation
-        if (nextIndex == 1)
-        {
-            await validateId(value)
-        }
+    await validateId(value, nextIndex);
+        
 
     if (nextIndex >= onboardingQuestions.length) {
         // Save to DB using helper
@@ -177,11 +175,15 @@ router.post('/onboarding', async (req, res) => {
     res.redirect(`/onboarding?q=${nextIndex}`);
     
     }catch(e) {
+        const safeIndex = (!isNaN(currentIndex) && onboardingQuestions[currentIndex]) ? currentIndex : 0;
+
         return res.render('onboarding', {
             question: onboardingQuestions[currentIndex],
+            questionIndex: safeIndex,
             title: 'Onboarding',
             error: e.message || 'Input error',
-            value // to prefill the form with the user's last input
+            totalQuestions: onboardingQuestions.length,
+            value
         });
     }
 });
