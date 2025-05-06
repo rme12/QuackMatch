@@ -63,3 +63,16 @@
     overflow: hidden;
     object-fit: cover;
 }
+.profile-preference-container {
+    display: flex;
+    gap: 13rem;
+    align-items: flex-start;
+}
+
+.profile-info {
+    max-width: 200px;
+}
+
+.preferences-info {
+    flex-grow: 1;
+}

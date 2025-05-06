@@ -12,6 +12,18 @@
                         data-lastname="{{this.0.lastName}}"
                         data-email="{{this.0.email}}"
                         data-pic="{{this.0.profilePicPath}}"
+                        data-wakeuptime="{{this.0.preferences.wakeUpTime}}"
+                        data-sleeptime="{{this.0.preferences.sleepTime}}"
+                        data-cleanliness="{{this.0.preferences.cleanliness}}"
+                        data-guestpolicy="{{this.0.preferences.guestPolicy}}"
+                        data-noisetolerance="{{this.0.preferences.noiseTolerance}}"
+                        data-smokingvapingallowed="{{this.0.preferences.smokingVapingAllowed}}"
+                        data-pettolerance="{{this.0.preferences.petTolerance}}"
+                        data-opentosharedroom="{{this.0.preferences.openToSharedRoom}}"
+                        data-temperaturepreference="{{this.0.preferences.temperaturePreference}}"
+                        data-introvertextrovertlevel="{{this.0.preferences.introvertExtrovertLevel}}"
+                        data-desiredroommatesociallevel="{{this.0.preferences.desiredRoommateSocialLevel}}"
+                        data-preferredroommateage="{{this.0.preferences.preferredRoommateAge}}"  
                     >   <img src="{{#if this.0.profilePicPath}}{{this.0.profilePicPath}}{{else}}/images/defaultProfilePicture.png{{/if}}" class="profile-pic-small" alt="No Profile Photo">
                         {{this.0.firstName}} {{this.0.lastName}}
                     </button>
@@ -40,12 +52,46 @@
             const lastName = btn.getAttribute('data-lastname');
             const email = btn.getAttribute('data-email');
             const pic = btn.getAttribute('data-pic');
+            const wakeUpTime = btn.getAttribute('data-wakeuptime');
+            const sleepTime = btn.getAttribute('data-sleeptime');
+            const cleanliness = btn.getAttribute('data-cleanliness');
+            const guestPolicy = btn.getAttribute('data-guestpolicy');
+            const noiseTolerance = btn.getAttribute('data-noisetolerance');
+            const smokingVapingAllowed = btn.getAttribute('data-smokingvapingallowed') === 'true';
+            const petTolerance = btn.getAttribute('data-pettolerance');
+            const openToSharedRoom = btn.getAttribute('data-opentosharedroom') === 'true';
+            const temperaturePreference = btn.getAttribute('data-temperaturepreference');
+            const introvertExtrovertLevel = btn.getAttribute('data-introvertextrovertlevel');
+            const desiredRoommateSocialLevel = btn.getAttribute('data-desiredroommatesociallevel');
+            const preferredRoommateAge = btn.getAttribute('data-preferredroommateage');
+
 
             const detailsDiv = document.getElementById('match-details');
             detailsDiv.innerHTML = `
-                <h2>${firstName} ${lastName}</h2>
-                <img src="${pic}" class="profile-pic" alt="Profile Picture">
-                <p><strong>Email:</strong> ${email}</p>
+                <div class="profile-preference-container">
+                    <div class="profile-info">
+                        <h2>${firstName} ${lastName}</h2>
+                        <img src="${pic}" class="profile-pic" alt="Profile Picture">
+                        <p><strong>Email:</strong> ${email}</p>
+                    </div>
+                    <div class="preferences-info">
+                        <h3>Preferences</h3>
+                        <ul class="preference-list">
+                            <li><strong>Wake-up Time:</strong> ${wakeUpTime || 'N/A'}</li>
+                            <li><strong>Sleep Time:</strong> ${sleepTime || 'N/A'}</li>
+                            <li><strong>Cleanliness:</strong> ${cleanliness || 'N/A'}</li>
+                            <li><strong>Guest Policy:</strong> ${guestPolicy || 'N/A'}</li>
+                            <li><strong>Noise Tolerance:</strong> ${noiseTolerance || 'N/A'}</li>
+                            <li><strong>Smoking/Vaping Allowed:</strong> ${smokingVapingAllowed ? 'Yes' : 'No'}</li>
+                            <li><strong>Pet Tolerance:</strong> ${petTolerance || 'N/A'}</li>
+                            <li><strong>Open to Shared Room:</strong> ${openToSharedRoom ? 'Yes' : 'No'}</li>
+                            <li><strong>Temperature Preference:</strong> ${temperaturePreference || 'N/A'}</li>
+                            <li><strong>Introvert/Extrovert Level:</strong> ${introvertExtrovertLevel || 'N/A'}</li>
+                            <li><strong>Desired Roommate Social Level:</strong> ${desiredRoommateSocialLevel || 'N/A'}</li>
+                            <li><strong>Preferred Roommate Age:</strong> ${preferredRoommateAge || 'N/A'}</li>
+                        </ul>
+                    </div>
+                </div>
             `;
         });
     });
