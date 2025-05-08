@@ -37,15 +37,16 @@
             <div class="preferences">
                 <h2>Your Top Preferences:</h2>
                 <ul>
-                    {{#each user.preferences.mostImportantPreferences}}
-                        <li>
-                            {{this}}: {{lookup ../user.preferences this}}
-                        </li>
-                    {{/each}}
+                {{#each user.preferences.mostImportantPreferences}}
+                    <li>
+                    {{lookupShortDesc ../onboardingQuestions this}}: {{lookup ../user.preferences this}}
+                    </li>
+                {{/each}}
                 </ul>
+
                 <h2>Your Least Important Preference</h2>
                 <p>
-                    {{user.preferences.leastImportantPreferences}}: 
+                    {{lookupShortDesc onboardingQuestions user.preferences.leastImportantPreferences}}: 
                     {{lookup user.preferences user.preferences.leastImportantPreferences}}
                 </p>
             </div>

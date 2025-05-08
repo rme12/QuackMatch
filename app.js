@@ -36,7 +36,11 @@ const hbs = exphbs.create({
         multiply: (a, b) => a * b,
         divide: (a, b) => b !== 0 ? a / b : 0,
         or: (a, b) => a || b,
-        includes: (arr, val) => Array.isArray(arr) && arr.includes(val)
+        includes: (arr, val) => Array.isArray(arr) && arr.includes(val),
+        lookupShortDesc: (questionsArray, fieldName) => {
+            const question = questionsArray.find(q => q.field === fieldName);
+            return question ? question.shortDesc : fieldName;
+        }
     }
 });
 app.engine('handlebars', hbs.engine);

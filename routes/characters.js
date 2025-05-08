@@ -135,7 +135,7 @@ router.get('/home', async (req, res) => {
         Once Messages is created make notifificationCount something like this
         const notificationCount = await db.collection('Messages').countDocuments({recipientId: user._id, read: false});
         */
-        res.render('home', { title: 'Home', user, notificationCount });
+        res.render('home', { title: 'Home', user, notificationCount, onboardingQuestions});
     }
 });
 

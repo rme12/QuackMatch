@@ -10,6 +10,11 @@
         </div>
 </div>
 
+<p id="saveConfirmation" style="display: none; color: green; font-weight: bold; margin-top: 20px;">
+  Changes saved!
+</p>
+
+
 <form id="updateProfileForm" action="/profile/update" method="POST">
 <div class="profile-form-container">
   {{#each onboardingQuestions}}
@@ -75,6 +80,7 @@
           min="{{this.min}}" 
           max="{{this.max}}" 
           value="{{lookup ../user this.field}}" />
+          <p class="slider-values">&nbsp;&nbsp;&nbsp;&nbsp;<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>10</p>
       {{/if}}
     </div>
   {{/each}}
