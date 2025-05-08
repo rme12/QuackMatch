@@ -19,6 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public')); // To serve CSS/JS
 
 
+// app.use('/onboarding', async (req,res,next) => {
+//     if (req.session.user)
+//         return res.redirect('/home');
+//    next()
+
+// })
+
 // View engine setup
 const hbs = exphbs.create({
     defaultLayout: 'main',
