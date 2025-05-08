@@ -1,3 +1,4 @@
+/* Base reset and font */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,10 +6,179 @@
     font-family: 'Inter', sans-serif;
 }
 
+/* Body Layout */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    padding: 80px 40px 40px 40px; /* Extra top padding for the nav */
+    min-height: 100vh;
+}
 
+/* Top Navigation */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
 
 .logo img {
     width: 210px;
     height: auto;
 }
 
+.nav-links {
+    display: flex;
+    gap: 16px;
+}
+
+.btn {
+    background: #f0f0f0;
+    color: black;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #e0e0e0;
+}
+
+/* Profile Form Layout */
+.profile-form-container {
+    margin-top: 120px; /* Push down below nav */
+    background: #f9f9f9;
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="time"],
+input[type="range"],
+select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background: #fff;
+}
+
+input[type="range"] {
+    height: 30px;
+}
+
+/* Checkbox groups */
+.multi-select-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+/* Submit Button */
+#updateProfileForm button[type="submit"] {
+    margin-top: 20px;
+    background: #4caf50;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background 0.3s ease;
+}
+
+#updateProfileForm button[type="submit"]:hover {
+    background: #43a047;
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+    .profile-form-container {
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .top-nav {
+        padding: 10px 20px;
+    }
+}
+
+#slider {
+    width: 90%;
+    height: 1px;
+    -webkit-appearance: none;
+    outline: none;
+    border-radius: 20px;
+    margin-left: 2.5%;
+
+}
+
+#slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #0b0909;
+    cursor: pointer;
+}
+
+.slider-values {
+    margin-top: 8px;
+    width: 90%;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    left: -6px; /* adjust this if needed */      
+}
+
+.slider-values span {
+    margin-right: 63.5px;
+}
