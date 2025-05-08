@@ -60,11 +60,13 @@ router.post('/login', async (req, res) => {
 
     // Success: create session
     req.session.userId = user._id;
+    
 
     // Redirect based on preferences
     if (!user.preferences) {
         return res.redirect('/onboarding');
     } else {
+        req.session.onboarding = true;
         const updateMatches = await findAndUpdateMatches(user._id);
         return res.redirect('/home');
     }
@@ -113,6 +115,7 @@ router.post('/register', async (req, res) => {
     });
 
     req.session.userId = result.insertedId;
+    req.session.onboarding = false;
     res.redirect('/onboarding');
 });
 
@@ -139,6 +142,7 @@ router.get('/home', async (req, res) => {
 // GET - Onboarding Question
 router.get('/onboarding', (req, res) => {
     if (!req.session.userId) return res.redirect('/login');
+    if(req.session.onboarding) return res.redirect('/home');
 
     const index = parseInt(req.query.q) || 0;
     const question = onboardingQuestions[index];
@@ -156,6 +160,8 @@ router.get('/onboarding', (req, res) => {
 // POST - Onboarding Answer
 router.post('/onboarding', async (req, res) => {
     if (!req.session.userId) return res.redirect('/login');
+    if(req.session.onboarding) return res.redirect('/home');
+    
 
     const { field, value, index } = req.body;
     const currentIndex = parseInt(index);
@@ -172,6 +178,7 @@ router.post('/onboarding', async (req, res) => {
         // Save to DB using helper
         await saveUserOnboardingData(req.session.userId, req.session.onboardingData);
         delete req.session.onboardingData;
+        req.session.onboarding = true;
         return res.redirect('/upload-profile-pic');
     }
 
