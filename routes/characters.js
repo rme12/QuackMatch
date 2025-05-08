@@ -4,8 +4,9 @@ import { connectToDb } from '../config/mongoConnection.js';
 import bcrypt from 'bcrypt';
 import { onboardingQuestions, saveUserOnboardingData } from '../helpers/onboarding.js';
 import { ObjectId } from 'mongodb';
-import {findMatches} from '../data/roommateMatcher.js';
+import {findAndUpdateMatches} from '../data/roommateMatcher.js';
 import multer from 'multer';
+import { validateId } from '../helpers.js';
 const upload = multer({ dest: 'public/uploads/' }); // or use cloud storage
 
 
@@ -59,11 +60,14 @@ router.post('/login', async (req, res) => {
 
     // Success: create session
     req.session.userId = user._id;
+    
 
     // Redirect based on preferences
     if (!user.preferences) {
         return res.redirect('/onboarding');
     } else {
+        req.session.onboarding = true;
+        const updateMatches = await findAndUpdateMatches(user._id);
         return res.redirect('/home');
     }
 });
@@ -87,6 +91,9 @@ router.post('/register', async (req, res) => {
         return res.status(400).render('register', { error: 'All fields are required' });
     }
 
+    if (!email.endsWith('@stevens.edu')) {
+        return res.status(400).render('register', { error: 'Access is limited to current Stevens students.' });
+    }
     if (password !== confirm) {
         return res.status(400).render('register', { error: 'Passwords do not match.' });
     }
@@ -108,6 +115,7 @@ router.post('/register', async (req, res) => {
     });
 
     req.session.userId = result.insertedId;
+    req.session.onboarding = false;
     res.redirect('/onboarding');
 });
 
@@ -117,7 +125,6 @@ router.get('/home', async (req, res) => {
 
     const db = await connectToDb();
     const user = await db.collection('Users').findOne({ _id: new ObjectId(req.session.userId) });
-
     if (!user) {
         req.session.destroy(() => res.redirect('/login'));
     } else if (!user.preferences) {
@@ -135,6 +142,7 @@ router.get('/home', async (req, res) => {
 // GET - Onboarding Question
 router.get('/onboarding', (req, res) => {
     if (!req.session.userId) return res.redirect('/login');
+    if(req.session.onboarding) return res.redirect('/home');
 
     const index = parseInt(req.query.q) || 0;
     const question = onboardingQuestions[index];
@@ -152,6 +160,8 @@ router.get('/onboarding', (req, res) => {
 // POST - Onboarding Answer
 router.post('/onboarding', async (req, res) => {
     if (!req.session.userId) return res.redirect('/login');
+    if(req.session.onboarding) return res.redirect('/home');
+    
 
     const { field, value, index } = req.body;
     const currentIndex = parseInt(index);
@@ -159,15 +169,33 @@ router.post('/onboarding', async (req, res) => {
     req.session.onboardingData[field] = value;
 
     const nextIndex = currentIndex + 1;
+    try {
+        //input validation
+    await validateId(value, nextIndex);
+        
 
     if (nextIndex >= onboardingQuestions.length) {
         // Save to DB using helper
         await saveUserOnboardingData(req.session.userId, req.session.onboardingData);
         delete req.session.onboardingData;
+        req.session.onboarding = true;
         return res.redirect('/upload-profile-pic');
     }
 
     res.redirect(`/onboarding?q=${nextIndex}`);
+    
+    }catch(e) {
+        const safeIndex = (!isNaN(currentIndex) && onboardingQuestions[currentIndex]) ? currentIndex : 0;
+
+        return res.render('onboarding', {
+            question: onboardingQuestions[currentIndex],
+            questionIndex: safeIndex,
+            title: 'Onboarding',
+            error: e.message || 'Input error',
+            totalQuestions: onboardingQuestions.length,
+            value
+        });
+    }
 });
 
 // GET - Upload Profile Picture Page
@@ -222,6 +250,20 @@ router.get('/profile', async (req, res) => {
     
     res.render('profile', { user: userPreferences, onboardingQuestions : filteredQuestions});
 });
+
+router.get('/matches', async (req, res) => {
+    if (!req.session.userId) return res.redirect('/login');
+
+    const db = await connectToDb();
+    const user = await db.collection('Users').findOne({ _id: new ObjectId(req.session.userId) });
+
+    if (!user) {
+        req.session.destroy(() => res.redirect('/login'));
+    } else {
+        res.render('matches', { title: 'Your Matches', user });
+    }
+});
+
 
 router.post('/profile/update', async (req, res) => {
     const db = await connectToDb();

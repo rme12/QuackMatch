@@ -25,7 +25,8 @@
             <h1>Welcome back, {{user.firstName}}!</h1>
             <h2>Your Perfect Match:</h2>
             {{#if user.matchedUsers.length}}
-                <p class="subheading">Your top match is <strong>{{user.matchedUsers.[0]}}</strong></p>
+                <p class="subheading"><br>Your top match is <strong>{{user.matchedUsers.[0].[0].firstName}} {{user.matchedUsers.[0].[0].lastName}}<br>Email: {{user.matchedUsers.[0].[0].email}}</strong></p>
+                <img src="{{user.matchedUsers.[0].[0].profilePicPath}}" alt="Profile Picture" class="profile-pic">
             {{else}}
                 <p class="subheading">Sorry, you have no matches yet.</p>
             {{/if}}
