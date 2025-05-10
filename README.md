@@ -12,7 +12,7 @@ Node.js & Express.js
 
 ## Installation <br>
 Clone the repository: <br>
-git clone https://github.com/rme12/quackmatch.git <br>
+git clone [https://github.com/rme12/quackmatch.git](https://github.com/rme12/QuackMatch.git) <br>
 cd quackmatch <br> 
 Install dependencies: <br>
 npm install <br>
