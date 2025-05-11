@@ -1,21 +1,116 @@
-.matches-container {
-    display: flex;
-    padding: 20px;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     font-family: 'Inter', sans-serif;
 }
 
-.left-panel {
-    width: 15%;
-    padding-right: 20px;
-    border-right: 1px solid #ccc;
+body {
+    height: 100vh;
+    background: #ffffff;
+    padding: 0;
+    overflow: hidden;
 }
 
-.right-panel {
-    width: 75%;
-    padding-left: 20px;
-    position: sticky;
+/* ---------- Top Navigation ---------- */
+.top-nav {
+    position: absolute;
     top: 0;
-    align-self: flex-start;
+    left: 0;
+    right: 0;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.logo img {
+    width: 210px;
+    height: auto;
+}
+
+.nav-links {
+    display: flex;
+    gap: 16px;
+}
+
+.btn {
+    background: #ffcb05;
+    color: black;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #bbae7e;
+}
+
+.nav-item-with-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.badge {
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 12px;
+    line-height: 1;
+    min-width: 24px;
+    text-align: center;
+    color: white;
+}
+
+.badge-red {
+    background-color: red;
+}
+
+.badge-grey {
+    background-color: grey;
+}
+
+/* ---------- Main Layout ---------- */
+.matches-container {
+    display: flex;
+    height: calc(100vh - 60px);
+    padding-top: 130px; /* height of the nav */
+    overflow: hidden;
+}
+
+/* ---------- Left Panel ---------- */
+.left-panel {
+    width: 20%;
+    padding: 20px;
+    background-color: #fafafa;
+    border-right: 1px solid #e0e0e0;
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #f5f5f5;
+}
+
+.left-panel::-webkit-scrollbar {
+    width: 6px;
+}
+.left-panel::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.left-panel h2 {
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    padding-top: 12px;
 }
 
 .match-list {
@@ -24,25 +119,46 @@
 }
 
 .match-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 5px;
-  width: 80%;
-  padding: 10px;
-  background-color: #f7f6f6;
-  border: none;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-  margin-bottom: 20px;
-  margin-left: 7%; 
-  font-size:20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    background-color: #f7f6f6;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    margin-bottom: 20px;
+    font-size: 18px;
+    text-align: center;
 }
 
 .match-btn:hover {
-    background-color: #d9d8d8d1;
+    background-color: #e0e0e0;
+}
+
+.profile-pic-small {
+    width: 100px;
+    height: 140px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* ---------- Right Panel ---------- */
+.right-panel {
+    flex: 1;
+    background: #f9f9f9;
+    padding: 30px;
+    overflow-y: auto;
+    max-height: calc(100vh - 60px);
+}
+
+#match-details h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
 }
 
 .profile-pic {
@@ -50,33 +166,34 @@
     height: 300px;
     border-radius: 10px;
     margin-top: 10px;
-    overflow: hidden;
     object-fit: cover;
-    
 }
 
-.profile-pic-small {
-    width: 125px;
-    height: 166.67px;
-    border-radius: 10px;
-    margin-top: 10px;
-    overflow: hidden;
-    object-fit: cover;
-}
 .profile-preference-container {
     display: flex;
-    gap: 13rem;
+    gap: 5rem;
     align-items: flex-start;
+    margin-top: 20px;
 }
 
 .profile-info {
-    max-width: 200px;
+    max-width: 225px;
 }
 
-.preferences-info {
-    flex-grow: 1;
+.preferences-info h3 {
+    margin-bottom: 10px;
 }
 
+.preference-list {
+    list-style: none;
+    padding: 0;
+}
+
+.preference-list li {
+    margin-bottom: 8px;
+}
+
+/* ---------- Back Button ---------- */
 .back-to-profile-btn {
     position: fixed;
     bottom: 20px;
@@ -93,5 +210,5 @@
 }
 
 .back-to-profile-btn:hover {
-    background-color: #222;
+    background-color: #333;
 }

@@ -8,6 +8,7 @@
             <img src="images/logov2.png" alt="QuackMatch logo">
         </div>
         <div class="nav-links">
+            <a href="/home" class="btn">Home</a>
             <a href="/profile" class="btn">Edit Profile</a>
             <div class="nav-item-with-badge">
                 <a href="/matches" class="btn">View Matches</a>
@@ -15,7 +16,6 @@
                     {{notificationCount}}
                 </span>
             </div>
-            <a href="/listings" class="btn">Browse Listings</a>
         </div>
     </div>
 
@@ -36,18 +36,19 @@
         <div class="right-panel">
             <div class="preferences">
                 <h2>Your Top Preferences:</h2>
-                <ul>
+
                 {{#each user.preferences.mostImportantPreferences}}
                     <li>
-                    {{lookupShortDesc ../onboardingQuestions this}}: {{lookup ../user.preferences this}}
+                        {{this}}: {{lookup ../user.preferences this}}
                     </li>
                 {{/each}}
-                </ul>
+
 
                 <h2>Your Least Important Preference</h2>
-                <p>
-                    {{lookupShortDesc onboardingQuestions user.preferences.leastImportantPreferences}}: 
-                    {{lookup user.preferences user.preferences.leastImportantPreferences}}
+                <p><li>
+                {{user.preferences.leastImportantPreferences}}: {{lookup user.preferences user.preferences.leastImportantPreferences}}
+                    </li>
+
                 </p>
             </div>
         </div>

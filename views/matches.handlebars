@@ -1,5 +1,20 @@
 <link rel="stylesheet" href="/css/matches.css">
 
+<div class="top-nav">
+    <div class="logo">
+        <img src="images/logov2.png" alt="QuackMatch logo">
+    </div>
+    <div class="nav-links">
+        <a href="/home" class="btn">Home</a>
+        <a href="/profile" class="btn">Edit Profile</a>
+        <div class="nav-item-with-badge">
+            <a href="/matches" class="btn">View Matches</a>
+            <span class="badge {{#if notificationCount}}badge-red{{else}}badge-grey{{/if}}">
+                {{notificationCount}}
+            </span>
+        </div>
+    </div>
+</div>
 <div class="matches-container">
     <div class="left-panel">
         <h2>Your Matches</h2>
@@ -34,16 +49,37 @@
 
     <div class="right-panel">
         <div id="match-details">
+            <div class="profile-preference-container">
             {{#if user.matchedUsers.length}}
+            <div class="profile-info">
                 <h2>{{user.matchedUsers.0.0.firstName}} {{user.matchedUsers.0.0.lastName}}</h2>
                 <img src="{{user.matchedUsers.0.0.profilePicPath}}" class="profile-pic" alt="No Profile Photo">
+
                 <p><strong>Email:</strong> {{user.matchedUsers.0.0.email}}</p>
+            </div>
+                <div class="preferences-info">
+                    <h3>Preferences</h3>
+                    <ul class="preference-list">
+                        <li><strong>Wake-up Time:</strong> {{user.matchedUsers.0.0.preferences.wakeUpTime }}</li>
+                        <li><strong>Sleep Time:</strong> {{user.matchedUsers.0.0.preferences.sleepTime }}</li>
+                        <li><strong>Cleanliness:</strong> {{user.matchedUsers.0.0.preferences.cleanliness }}</li>
+                        <li><strong>Guest Policy:</strong> {{user.matchedUsers.0.0.preferences.guestPolicy }}</li>
+                        <li><strong>Noise Tolerance:</strong> {{user.matchedUsers.0.0.preferences.noiseTolerance }}</li>
+                        <li><strong>Smoking/Vaping Allowed:</strong> {{user.matchedUsers.0.0.preferences.smokingVapingAllowed}}</li>
+                        <li><strong>Pet Tolerance:</strong> {{user.matchedUsers.0.0.preferences.petTolerance }}</li>
+                        <li><strong>Open to Shared Room:</strong> {{user.matchedUsers.0.0.preferences.openToSharedRoom }}</li>
+                        <li><strong>Temperature Preference:</strong> {{user.matchedUsers.0.0.preferences.temperaturePreference }}</li>
+                        <li><strong>Introvert/Extrovert Level:</strong> {{user.matchedUsers.0.0.preferences.introvertExtrovertLevel }}</li>
+                        <li><strong>Desired Roommate Social Level:</strong> {{user.matchedUsers.0.0.preferences.desiredRoommateSocialLevel }}</li>
+                        <li><strong>Preferred Roommate Age:</strong> {{user.matchedUsers.0.0.preferences.preferredRoommateAge }}</li>
+                    </ul>
+                </div>
+            </div>
             {{else}}
                 <p>No matches found.</p>
             {{/if}}
         </div>
     </div>
-    <a href="/home" class="back-to-profile-btn">Back to Home</a>
 
 </div>
 

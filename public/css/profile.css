@@ -3,7 +3,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Body Layout */
@@ -11,9 +11,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #ffffff;
-    padding: 80px 40px 40px 40px; /* Extra top padding for the nav */
+    background: #fefefe;
+    padding: 80px 20px 40px;
     min-height: 100vh;
+    color: #333;
 }
 
 /* Top Navigation */
@@ -42,34 +43,40 @@ body {
 }
 
 .btn {
-    background: #f0f0f0;
+    background: #ffcb05;
     color: black;
     padding: 12px 20px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
-    text-align: center;
-    text-decoration: none;
     font-size: 1rem;
     transition: background 0.3s ease;
+    text-decoration: none;
 }
 
 .btn:hover {
-    background: #e0e0e0;
+    background: #bbae7e;
 }
 
-/* Profile Form Layout */
+/* Profile Form Card */
 .profile-form-container {
-    margin-top: 120px; /* Push down below nav */
-    background: #f9f9f9;
+    margin-top: 120px;
+    background: #ffffff;
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 16px;
     width: 100%;
     max-width: 800px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     gap: 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .form-group {
@@ -79,9 +86,9 @@ body {
 }
 
 label {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1rem;
-    color: #333;
+    color: #222;
 }
 
 input[type="text"],
@@ -89,15 +96,60 @@ input[type="number"],
 input[type="time"],
 input[type="range"],
 select {
-    padding: 10px;
-    border-radius: 6px;
+    padding: 12px 14px;
+    border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 1rem;
     background: #fff;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+select:focus {
+    border-color: #004aad;
+    outline: none;
+    background-color: #fffdf4;
 }
 
 input[type="range"] {
     height: 30px;
+}
+
+/* Slider Styles */
+#slider {
+    width: 90%;
+    height: 1px;
+    -webkit-appearance: none;
+    outline: none;
+    border-radius: 20px;
+    margin-left: 2.5%;
+    background-color: #ccc;
+}
+
+#slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #004aad;
+    cursor: pointer;
+}
+
+.slider-values {
+    margin-top: 8px;
+    width: 90%;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    left: -6px;
+}
+
+.slider-values span {
+    margin-right: 63.5px;
 }
 
 /* Checkbox groups */
@@ -121,26 +173,27 @@ input[type="range"] {
 /* Submit Button */
 #updateProfileForm button[type="submit"] {
     margin-top: 20px;
-    background: #4caf50;
-    color: white;
+    background: #ffcb05;
+    color: #222;
     padding: 14px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     font-size: 1.1rem;
     transition: background 0.3s ease;
+    box-shadow: 0 3px 10px rgba(255, 193, 7, 0.2);
 }
 
 #updateProfileForm button[type="submit"]:hover {
-    background: #43a047;
+    background: #ffdb4d;
 }
 
-/* Responsive for mobile */
+/* Responsive */
 @media (max-width: 600px) {
     .profile-form-container {
-        padding: 20px;
-        border-radius: 15px;
+        padding: 24px;
+        border-radius: 12px;
     }
 
     .top-nav {
@@ -148,37 +201,7 @@ input[type="range"] {
     }
 }
 
-#slider {
-    width: 90%;
-    height: 1px;
-    -webkit-appearance: none;
-    outline: none;
-    border-radius: 20px;
-    margin-left: 2.5%;
-
+#slider::-webkit-slider-thumb {
+    background-color: #ffcb05;
 }
 
-#slider::-webkit-slider-thumb{
-    -webkit-appearance: none;
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    background-color: #0b0909;
-    cursor: pointer;
-}
-
-.slider-values {
-    margin-top: 8px;
-    width: 90%;
-    font-size: 20px;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    left: -6px; /* adjust this if needed */      
-}
-
-.slider-values span {
-    margin-right: 63.5px;
-}

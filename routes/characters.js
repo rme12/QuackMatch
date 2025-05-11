@@ -135,7 +135,7 @@ router.get('/home', async (req, res) => {
         Once Messages is created make notifificationCount something like this
         const notificationCount = await db.collection('Messages').countDocuments({recipientId: user._id, read: false});
         */
-        res.render('home', { title: 'Home', user, notificationCount, onboardingQuestions});
+        res.render('home', { title: 'Home', user, notificationCount});
     }
 });
 
@@ -226,7 +226,7 @@ router.post('/upload-profile-pic', upload.single('profilePic'), async (req, res)
 });
 
 // GET - Loading page
-router.get('/loading', (req, res) => {
+router.get('/loading', async (req, res) => {
     if (!req.session.userId) {
         return res.redirect('/login');
     }
@@ -234,6 +234,7 @@ router.get('/loading', (req, res) => {
     res.render('loading', {
         title: 'Matching in progress'
     });
+    const updateMatches = await findAndUpdateMatches(req.session.userId);
 });
 
 router.get('/profile', async (req, res) => {

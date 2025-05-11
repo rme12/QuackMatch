@@ -38,7 +38,7 @@ const differenceInMinutes = (time1, time2) => {
 
 const similarityScore = (user1, user2) => {
     let similarity = 0;
-    
+
     const pref1 = user1.preferences;
     const pref2 = user2.preferences;
     if (pref1 === undefined || pref2 === undefined || pref1 === null || pref2 === null) {

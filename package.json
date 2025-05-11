@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "node app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "seed": "node seed.js"
   },
   "author": "Zaafira Hasan, Carson Grenard, CJ Folgore, Zackery Dragos, Shravani Reddy",
   "license": "ISC",
