@@ -265,6 +265,12 @@ router.get('/matches', async (req, res) => {
     }
 });
 
+router.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/login');
+    });
+});
+
 
 router.post('/profile/update', async (req, res) => {
     const db = await connectToDb();
