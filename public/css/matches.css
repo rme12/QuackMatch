@@ -24,6 +24,7 @@ body {
     align-items: center;
     background: #fff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 999;
 }
 
 .logo img {
@@ -79,15 +80,14 @@ body {
     background-color: grey;
 }
 
-/* ---------- Main Layout ---------- */
+
 .matches-container {
     display: flex;
     height: calc(100vh - 60px);
-    padding-top: 130px; /* height of the nav */
+    padding-top: 130px;
     overflow: hidden;
 }
 
-/* ---------- Left Panel ---------- */
 .left-panel {
     width: 20%;
     padding: 20px;
@@ -147,7 +147,6 @@ body {
     object-fit: cover;
 }
 
-/* ---------- Right Panel ---------- */
 .right-panel {
     flex: 1;
     background: #f9f9f9;
@@ -167,6 +166,7 @@ body {
     border-radius: 10px;
     margin-top: 10px;
     object-fit: cover;
+    z-index: -1;
 }
 
 .profile-preference-container {
@@ -193,7 +193,6 @@ body {
     margin-bottom: 8px;
 }
 
-/* ---------- Back Button ---------- */
 .back-to-profile-btn {
     position: fixed;
     bottom: 20px;
