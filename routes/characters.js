@@ -272,6 +272,7 @@ router.get('/logout', (req, res) => {
 
 
 router.post('/profile/update', async (req, res) => {
+    if (!req.session.userId) return res.redirect('/login');
     const db = await connectToDb();
     const userId = new ObjectId(req.session.userId);
     const excludedFields = ['studentID', 'age', 'gender'];
@@ -296,11 +297,11 @@ router.post('/profile/update', async (req, res) => {
 
             if (key === "preferredRoommateAge") {
             const age = parseInt(value, 10);
-            if (age >= 17 && age <= 25) {
+            if (age >= 17 && age <= 100) {
                 updates[key] = age;
             } 
             else {
-                errors.push("Age must be between 17 and 25.");
+                errors.push("Age must be between 17 and 100.");
             }
             }
 
