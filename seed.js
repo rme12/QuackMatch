@@ -34,10 +34,33 @@ const housingImages = [
 ];
 
 
+
+const profileImagesMale = [
+    'https://randomuser.me/api/portraits/men/21.jpg',
+    'https://randomuser.me/api/portraits/men/71.jpg',
+    'https://randomuser.me/api/portraits/men/29.jpg',
+    'https://randomuser.me/api/portraits/men/0.jpg',
+    'https://randomuser.me/api/portraits/men/17.jpg',
+    'https://randomuser.me/api/portraits/men/76.jpg',
+    'https://randomuser.me/api/portraits/men/18.jpg',
+    'https://randomuser.me/api/portraits/men/72.jpg',
+    'https://randomuser.me/api/portraits/men/89.jpg',
+    'https://randomuser.me/api/portraits/men/37.jpg',
+    'https://randomuser.me/api/portraits/men/12.jpg',
+    'https://randomuser.me/api/portraits/men/35.jpg',
+    'https://randomuser.me/api/portraits/men/42.jpg',
+    'https://randomuser.me/api/portraits/men/57.jpg',
+    'https://randomuser.me/api/portraits/men/22.jpg'
+]
+
+
+
 const generateRandomUser = async () => {
     const password = await bcrypt.hash('Password123!', 10);
     const mostImportant = faker.helpers.shuffle(preferenceKeys).slice(0, 6);
     const leastImportant = faker.helpers.arrayElement(preferenceKeys);
+
+    let randomNumber = Math.floor(Math.random() * 15);
 
     return {
         firstName: faker.person.firstName(),
@@ -66,7 +89,7 @@ const generateRandomUser = async () => {
         age: faker.number.int({ min: 18, max: 30 }),
         gender: faker.helpers.arrayElement(genderOptions),
         studentID: `id${faker.string.alphanumeric(6)}`,
-        profilePicPath: `public/uploads/${faker.string.alphanumeric(32)}.jpg`
+        profilePicPath: profileImagesMale[randomNumber]
     };
 };
 
