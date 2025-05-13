@@ -12,6 +12,7 @@
   "author": "Zaafira Hasan, Carson Grenard, CJ Folgore, Zackery Dragos, Shravani Reddy",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^9.7.0",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "blueimp-md5": "^2.19.0",
