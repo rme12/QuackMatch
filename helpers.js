@@ -11,8 +11,8 @@ export const validateId = async (value, index) => {
       }
     } else if (index == 2) {
       // Age
-      if (value < 0 || value > 120) {
-        throw new Error("Age must be a valid number between 0 and 120.");
+      if (value < 17 || value > 25) {
+        throw new Error("Age must be a valid number between 17 and 100.");
       }
   
     } else if (index == 3) {
@@ -90,7 +90,7 @@ export const validateId = async (value, index) => {
   
     } else if (index == 15) {
       if (value < 0 || value > 120) {
-        throw new Error("Preferred roommate age must be a valid number between 0 and 120.");
+        throw new Error("Preferred roommate age must be a valid number between 17 and 100.");
       }
   
     } else if (index == 16) {

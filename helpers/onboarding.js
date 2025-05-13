@@ -3,25 +3,34 @@ import { ObjectId } from 'mongodb';
 import { connectToDb } from '../config/mongoConnection.js';
 
 export const onboardingQuestions = [
-    { field: 'studentID', text: 'What is your Student ID?', type: 'text' },
-    { field: 'age', text: 'What is your age?', type: 'number' },
-    { field: 'gender', text: 'What is your gender?', type: 'select', options: ['Male', 'Female', 'Non-Binary', 'Other'] },
-    { field: 'wakeUpTime', text: 'What time do you usually wake up?', type: 'time' },
-    { field: 'sleepTime', text: 'What time do you usually sleep?', type: 'time' },
-    { field: 'cleanliness', text: 'How clean are you usually?', type: 'select', options: ['Low', 'Moderate', 'High'] },
-    { field: 'guestPolicy', text: 'What is your guest policy?', type: 'select', options: ['No guests', 'Only with notice', 'Open to guests'] },
-    { field: 'noiseTolerance', text: 'What is your noise tolerance?', type: 'select', options: ['Low', 'Moderate', 'High'] },
-    { field: 'smokingVapingAllowed', text: 'Are you okay with smoking or vaping?', type: 'boolean' },
-    { field: 'petTolerance', text: 'What pets are you okay with?', type: 'select', options: ['None', 'Small animals', 'Any pets'] },
-    { field: 'openToSharedRoom', text: 'Are you open to sharing a room?', type: 'boolean' },
-    { field: 'temperaturePreference', text: 'Preferred room temperature (°F)?', type: 'number' },
-    { field: 'introvertExtrovertLevel', text: 'How social are you? (1 = introvert, 10 = extrovert)', type: 'range', min: 1, max: 10 },
-    { field: 'desiredRoommateSocialLevel', text: 'Preferred roommate social level (1–10)?', type: 'range', min: 1, max: 10 },
-    { field: 'preferredRoommateAge', text: 'Preferred roommate age?', type: 'number' },
-    { field: 'preferredRoommateGender', text: 'Preferred roommate gender?', type: 'select', options: ['Male', 'Female', 'Any'] },
+    { field: 'studentID', text: 'What is your Student ID?', type: 'text', shortDesc: 'Student ID'},
+    { field: 'age', text: 'What is your age?', type: 'number', shortDesc: "Age"},
+    { field: 'gender', text: 'What is your gender?', type: 'select', options: ['Male', 'Female', 'Non-Binary', 'Other'], shortDesc: "Gender" },
+    { field: 'wakeUpTime', text: 'What time do you usually wake up?', type: 'time', shortDesc: "Wakeup Time"},
+    { field: 'sleepTime', text: 'What time do you usually sleep?', type: 'time', shortDesc: "Bedtime" },
+    { field: 'cleanliness', text: 'How clean are you usually?', type: 'select', options: ['Low', 'Moderate', 'High'], shortDesc: "Cleanliness" },
+    { field: 'guestPolicy', text: 'What is your guest policy?', type: 'select', options: ['No guests', 'Only with notice', 'Open to guests'], shortDesc: "Guest Policy" },
+    { field: 'noiseTolerance', text: 'What is your noise tolerance?', type: 'select', options: ['Low', 'Moderate', 'High'], shortDesc : "Noise Tolerance"},
+    { field: 'smokingVapingAllowed', text: 'Are you okay with smoking or vaping?', type: 'boolean', shortDesc : "Smoking and Vaping"},
+    { field: 'petTolerance', text: 'What pets are you okay with?', type: 'select', options: ['None', 'Small animals', 'Any pets'], shortDesc : "Pet Policy"},
+    { field: 'openToSharedRoom', text: 'Are you open to sharing a room?', type: 'boolean', shortDesc : "Openness to Shared Room"},
+    { field: 'temperaturePreference', text: 'Preferred room temperature (°F)?', type: 'number', shortDesc : "Preferred Room Temperature Range"},
+    { field: 'introvertExtrovertLevel', text: 'How social are you? (1 = introvert, 10 = extrovert)', type: 'range', min: 1, max: 10, shortDesc: "Personal Social Level (Introvert or Extrovert)"},
+    { field: 'desiredRoommateSocialLevel', text: 'Preferred roommate social level (1–10)?', type: 'range', min: 1, max: 10, shortDesc : "Social Level Desired in Roommate (Introvert or Extrovert)"},
+    { field: 'preferredRoommateAge', text: 'Preferred roommate age?', type: 'number' , shortDesc: "Roommate age range"},
+    { field: 'preferredRoommateGender', text: 'Preferred roommate gender?', type: 'select', options: ['Male', 'Female', 'Any'], shortDesc: "Gender of Roommates"},
     { field: 'mostImportantPreferences', text: 'Which 2 preferences matter the most to you?', type: 'multi-select', options: ['wakeUpTime', 'sleepTime', 'noiseTolerance', 'cleanliness', 'temperaturePreference', 'guestPolicy'] },
     { field: 'leastImportantPreferences', text: 'Which preference matters the least to you?', type: 'select', options: ['none', 'wakeUpTime', 'sleepTime', 'noiseTolerance', 'cleanliness', 'temperaturePreference', 'guestPolicy'] }
 ];
+
+export let shortDescMap = {};
+onboardingQuestions.forEach(q => {
+    if (q.shortDesc) {
+    shortDescMap[q.field] = q.shortDesc;
+}
+});
+
+
 
 // Format session data into DB schema and save
 export async function saveUserOnboardingData(userId, sessionData) {

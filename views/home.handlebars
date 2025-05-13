@@ -36,19 +36,18 @@
         <div class="right-panel">
             <div class="preferences">
                 <h2>Your Top Preferences:</h2>
-
                 {{#each user.preferences.mostImportantPreferences}}
-                    <li>
-                        {{this}}: {{lookup ../user.preferences this}}
-                    </li>
+                <li>
+                    {{lookup ../shortDescMap this}}: {{lookup ../user.preferences this}}
+                </li>
                 {{/each}}
 
-
-                <h2>Your Least Important Preference</h2>
-                <p><li>
-                {{user.preferences.leastImportantPreferences}}: {{lookup user.preferences user.preferences.leastImportantPreferences}}
-                    </li>
-
+                <h2>Your Least Important Preference:</h2>
+                <p>
+                <li>
+                    {{lookup shortDescMap user.preferences.leastImportantPreferences}}:
+                    {{lookup user.preferences user.preferences.leastImportantPreferences}}
+                </li>
                 </p>
             </div>
         </div>
