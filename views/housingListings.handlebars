@@ -1,0 +1,38 @@
+
+<link rel="stylesheet" href="/css/housingListings.css">
+<div class="top-nav">
+    <div class="logo">
+        <img src="images/logov2.png" alt="QuackMatch logo">
+    </div>
+    <div class="nav-links">
+        <a href="/home" class="btn">Home</a>
+        <a href="/profile" class="btn">Edit Profile</a>
+        <a href="/matches" class="btn">View Matches</a>
+        <a href="/housing" class="btn">Listings</a>
+        <a href="/logout" class="btn">Logout</a>
+    </div>
+</div>
+
+<div class="listings-container">
+    <h1>Apartment & Dorm Listings</h1>
+
+    {{#each listings}}
+        <div class="listing-card">
+            <div class="image-container">
+                <img src="{{imageUrl}}" alt="Listing Photo">
+            </div>
+            <div class="listing-info">
+                <h2>{{address}}</h2>
+                <p><strong>Status:</strong> {{status}}</p>
+                <p><strong>Cost:</strong> ${{cost}}</p>
+                <p><strong>Rooms:</strong> {{numberOfRooms}}</p>
+                <p><strong>Amenities:</strong> {{#each amenities}}<span class="amenity">{{this}}</span> {{/each}}</p>
+                <p><strong>Landlord:</strong> {{landlordName}} ({{landlordContactInfo}})</p>
+            </div>
+        </div>
+    {{/each}}
+
+    {{#unless listings.length}}
+        <p class="no-data">No listings available at the moment.</p>
+    {{/unless}}
+</div>

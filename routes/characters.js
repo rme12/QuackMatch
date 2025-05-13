@@ -339,4 +339,15 @@ router.post('/profile/update', async (req, res) => {
   });
 
 
+router.get('/housing', async (req, res) => {
+    const db = await connectToDb();
+    const listings = await db.collection('ApartmentDorms').find().toArray();
+    listings.forEach(listing => {
+        listing.imageUrl = listing.imageUrl || 'https://source.unsplash.com/400x300/?apartment,dorm,room';
+    });
+
+
+    res.render('housingListings', { listings });
+});
+
 export default router;

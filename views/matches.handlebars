@@ -7,12 +7,9 @@
     <div class="nav-links">
         <a href="/home" class="btn">Home</a>
         <a href="/profile" class="btn">Edit Profile</a>
-        <div class="nav-item-with-badge">
-            <a href="/matches" class="btn">View Matches</a>
-            <span class="badge {{#if notificationCount}}badge-red{{else}}badge-grey{{/if}}">
-                {{notificationCount}}
-            </span>
-        </div>
+        <a href="/matches" class="btn">View Matches</a>
+        <a href="/housing" class="btn">Listings</a>
+        <a href="/logout" class="btn">Logout</a>
     </div>
 </div>
 <div class="matches-container">
@@ -38,7 +35,7 @@
                         data-temperaturepreference="{{this.0.preferences.temperaturePreference}}"
                         data-introvertextrovertlevel="{{this.0.preferences.introvertExtrovertLevel}}"
                         data-desiredroommatesociallevel="{{this.0.preferences.desiredRoommateSocialLevel}}"
-                        data-preferredroommateage="{{this.0.preferences.preferredRoommateAge}}"  
+                        data-preferredroommateage="{{this.0.preferences.preferredRoommateAge}}"
                     >   <img src="{{#if this.0.profilePicPath}}{{this.0.profilePicPath}}{{else}}/images/defaultProfilePicture.png{{/if}}" class="profile-pic-small" alt="No Profile Photo">
                         {{this.0.firstName}} {{this.0.lastName}}
                     </button>
