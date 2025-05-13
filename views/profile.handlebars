@@ -17,8 +17,18 @@
 </p>
 
 
+
 <form id="updateProfileForm" action="/profile/update" method="POST">
 <div class="profile-form-container">
+  {{#if errors}}
+  <div class="form-errors">
+    <ul>
+      {{#each errors}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}
   {{#each onboardingQuestions}}
     <div class="form-group">
       <label for="{{this.field}}">{{this.text}}</label>
@@ -30,6 +40,8 @@
           name="{{this.field}}" 
           id="{{this.field}}" 
           value="{{lookup ../user this.field}}" />
+          {{#if (eq this.field "preferredRoommateAge")}}Age range: 17-25{{/if}}
+          {{#if (eq this.field "temperaturePreference")}}Temperature Range (F): 50-90{{/if}}
       
       {{!-- Boolean --}}
       {{else if (eq this.type "boolean")}}
@@ -49,12 +61,13 @@
       {{!-- Multi-select --}}
       {{else if (eq this.type "multi-select")}}
         <div class="multi-select-checkbox-group" id="{{this.field}}">
+            <input type="hidden" name="{{this.field}}[]" value="">
             {{#each this.options}}
                 <div class="checkbox-row">
                 <label>
                     <input 
                     type="checkbox" 
-                    name="{{../field}}" 
+                    name="{{../field}}[]" 
                     value="{{this}}" 
                     {{#if (includes (lookup ../../user ../field) this)}}checked{{/if}}>
                     {{this}}

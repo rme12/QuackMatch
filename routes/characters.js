@@ -2,13 +2,12 @@
 import { Router } from 'express';
 import { connectToDb } from '../config/mongoConnection.js';
 import bcrypt from 'bcrypt';
-import { onboardingQuestions, saveUserOnboardingData } from '../helpers/onboarding.js';
+import { onboardingQuestions, saveUserOnboardingData, shortDescMap } from '../helpers/onboarding.js';
 import { ObjectId } from 'mongodb';
 import {findAndUpdateMatches} from '../data/roommateMatcher.js';
 import multer from 'multer';
 import { validateId } from '../helpers.js';
 const upload = multer({ dest: 'public/uploads/' }); // or use cloud storage
-
 
 
 const router = Router();
@@ -24,7 +23,7 @@ router.get('/', async (req, res) => {
     } else if (!user.preferences) {
         return res.redirect('/onboarding');
     } else {
-        res.render('/home', { title: 'Home', user });
+        res.render('/home', { title: 'Home', user, shortDescMap });
     }
 });
 
@@ -135,7 +134,7 @@ router.get('/home', async (req, res) => {
         Once Messages is created make notifificationCount something like this
         const notificationCount = await db.collection('Messages').countDocuments({recipientId: user._id, read: false});
         */
-        res.render('home', { title: 'Home', user, notificationCount});
+        res.render('home', { title: 'Home', user, notificationCount, shortDescMap});
     }
 });
 
@@ -280,22 +279,59 @@ router.post('/profile/update', async (req, res) => {
     // Build the update object by excluding certain fields
     
     const updates = {};
+    const errors = [];
     for (const [key, value] of Object.entries(req.body)) {
-      if (!excludedFields.includes(key)) {
-        // Handle multi-selects properly (arrays come in as strings if only one item)
-        if (Array.isArray(value)) {
-          updates[key] = value;
-        } else if (value === 'true' || value === 'false') {
-          updates[key] = value === 'true'; // convert strings to actual booleans
-        } else {
-          updates[key] = value;
+        if (!excludedFields.includes(key)) 
+        {
+            if (Array.isArray(value)) {
+                updates[key] = value.filter(v => v !== "");
+            } 
+            else if (value === 'true' || value === 'false') {
+                updates[key] = value === 'true'; // convert strings to actual booleans
+            } else 
+            {
+                updates[key] = value;
+            }
+
+
+            if (key === "preferredRoommateAge") {
+            const age = parseInt(value, 10);
+            if (age >= 17 && age <= 25) {
+                updates[key] = age;
+            } 
+            else {
+                errors.push("Age must be between 17 and 25.");
+            }
+            }
+
+
+            else if (key === "temperaturePreference") {
+            const temp = parseInt(value, 10);
+            if (temp < 50 || temp > 90) 
+            {
+                errors.push("Temperature must be between 50 and 90.");
+            } 
+            else 
+            {
+                updates[key] = temp;
+            }
+            }
         }
-      }
     }
   
+    if (errors.length > 0) {
+        const user = await db.collection('Users').findOne({ _id: userId });
+      
+        const excludedFields = ['studentID', 'age', 'gender'];
+        const filteredQuestions = onboardingQuestions.filter(q => !excludedFields.includes(q.field));
+      
+        return res.render('profile', { user: user.preferences, onboardingQuestions: filteredQuestions, errors});
+      }
+
+
     await db.collection('Users').updateOne(
       { _id: userId },
-      { $set: {preferences: req.body}}
+      { $set: {preferences: updates}}
     );
   
     res.redirect('/profile');
