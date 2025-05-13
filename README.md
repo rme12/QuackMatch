@@ -16,7 +16,10 @@ git clone [https://github.com/rme12/quackmatch.git](https://github.com/rme12/Qua
 cd quackmatch <br> 
 Install dependencies: <br>
 npm install <br>
+To use preset users for the db: <br>
+node seed.js <br>
 Run the app locally: <br>
 npm start
+
 
 
